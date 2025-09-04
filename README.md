@@ -9,7 +9,7 @@
 - Gamers want to share their clips to a platform to get recognition, but the social media giants does not prioritize them in the algorithm.
 
 *Solution*
-- Create a app like X or TikTok that focuses on these clips, so that other gamers can share and watch each 
+- Create an app like X or TikTok that focuses on these clips, so that other gamers can share and watch each 
 others highlights. A more collabartive and focused platform for gamers.
 
 *Roles*
