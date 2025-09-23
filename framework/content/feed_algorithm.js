@@ -1,8 +1,18 @@
-function generateOpen() {
+function generateForOpen() {
     return new BaseContentData();
 }
 
-function generateUser( _abstractMysteryVerificationThing ) {
+function generateForUser( _abstractMysteryVerificationThing ) {
     return new BaseContentData();
+}
+
+class UserOutline {
+    likesPiss;
+    likesGamerGirls;
+    // etc
+
+    constructor() {
+        
+    }
 }
 

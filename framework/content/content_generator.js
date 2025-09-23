@@ -12,34 +12,10 @@ BaseContentStructure = {
     HTML_CLOSE          : "</p> </div> </div>",
 };
 
-class BaseContentData {
-    accountName;
-    accountPicture;
-    contentMedia;
-    contentDescription;
-
-    constructor( _accountName, _accountPicture, _contentMedia, _contentDescription ) {
-        this.accountName         = _accountName;      
-        this.accountPicture      = _accountPicture;   
-        this.contentMedia        = _contentMedia;     
-        this.contentDescription  = _contentDescription;
-    }
-    getAccountName() {
-        return this.accountName;
-    }
-    getAccountPicture() {
-        return this.accountPicture;
-    }
-    getContentMedia() {
-        return this.contentMedia;
-    }
-    getContentDescription() {
-        return this.contentDescription;
-    }
-}
 
 class Content {
     data;
+
     constructor( _contentData ) {
         this.data = _contentData;
     }
@@ -58,6 +34,14 @@ class Content {
         _html.push(BaseContentStructure.HTML_CLOSE);
         return _html.join("");
     }
+}
+
+
+class ContentMain {
+
+}
+class ContentComment {
+    
 }
 
 
