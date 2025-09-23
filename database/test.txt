@@ -1,0 +1,15 @@
+INSERT INTO users VALUES
+    ('admin', 1, 'admin', 'pol;dha;ire:twi', 'ninja;pol;ire', 24, 'counter_strike_2,12;counter_strike_s2,43,baldurs_gate_3,27'),
+    ('dha', 2, 'lego1234', 'admin;pol;ire', 'twi;ninja;ire', 10, 'league_of_legends,32;counter_strike_2,5');
+
+INSERT INTO content VALUES
+    (32, 'league_clip.mp4', 54, 82, 'league_of_legends', 'moba', 12, 2),
+    (5, 'SIMPLE.mp4', 10052, 31, 'counter_strike_2', 'fps', 8719, 2231);
+
+INSERT INTO user_interactions VALUES 
+    ('admin', 1, 5, TRUE, FALSE, TRUE, '😂'),
+    ('dha', 2, 32, TRUE, FALSE, FALSE, '');
+
+INSERT INTO user_comment VALUES
+    ('dha', TRUE, 2, 5, 'du e så drit', 2, 4),
+    ('dha', FALSE, 2, 5, '', 0, 0);
