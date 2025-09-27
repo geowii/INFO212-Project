@@ -1,0 +1,11 @@
+<div id="contentSpace"> <div class="mainVideo"> <div class=video> <img src="
+###CONTENT: SOURCE
+" alt="
+###CONTENT: NAME
+"> </div><div id="info"> <p id="views">👁 
+###CONTENT: VIEWS
+</p> <p id="emoji">
+###CONTENT: EMOJI 
+</p> </div> <div class="descriptionDiv"> <p id="description">
+###CONTENT: DESCRIPTION_SMALL
+</p></div></div></div>
