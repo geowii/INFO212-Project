@@ -1,0 +1,15 @@
+<div class=\"mainVideo\"> <div class=video> <img src=\"
+###CONTENT: SOURCE
+\" alt=\"
+###CONTENT: TITLE
+\"> </div> <div id=\"info\"> <p id=\"views\"></p>👁 
+###CONTENT: VIEWS
+</p> <p id=\"emoji\">
+###CONTENT: EMOJI
+</p> </div> <div class=\"descriptionDiv\"> <p id=\"description\"></p>
+###CONTENT: DESCRIPTION_SHORT
+</p> </div> </div>
+
+
+COMMENT_SHORT
+

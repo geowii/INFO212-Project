@@ -14,11 +14,13 @@ class Profile {
      */
     constructor( _account, _name, _image, _description ) {
         this.#name = _name;
-        this.#picture = _picture;
+        this.#picture = _image;
         this.#description = _description;
         this.#account = _account;
-        this.#comments = new CommentSet();
+        this.#comments = new DataCommentSet();
     }
+
+    
 
     getName() {
         return this.#name;

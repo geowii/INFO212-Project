@@ -3,8 +3,8 @@ class Account {
     #accountId;
     #accountKey;
 
-    constructor( _profile, _accountId, _accountKey ) {
-        this.#profile = _profile;
+    constructor( _accountId, _accountKey ) {
+        this.#profile = new Profile(this, _accountId, null, "");
         this.#accountId = _accountId;
         this.#accountKey = _accountKey;
     }
