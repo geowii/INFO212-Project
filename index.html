@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For you</title>
     <link rel="stylesheet" href="./styles/forYou.css">
-    <script src="./script/forYou.js"></script>
+    <script src="./framework/content/feed_algorithm.js"></script>
+    <script src="./framework/content/access_system.js"></script>
+    <script src="./framework/content/profile.js"></script>
+    <script src="./framework/content/content_data.js"></script>
+    <script src="./framework/content/content_generator.js"></script>
 </head>
 
 <body style="display: grid; background-color: #272725;">
     <div style="text-align: center;">
+        <button id="generateButton">generate</button>
         <div class="header" id="yourPage">
             <h1>Your</h1>
         </div>
@@ -22,42 +27,9 @@
     </div>
     <div id="outerLayer">
         <div class="clipsContainer">
-            <div class="video">
-                <video autoplay>
-                    <source src="./media/clips/fortnite_1.mp4" type="video/mp4">
-                </video>
-                <div id="info">
-                    <p class="viewCount">👁 420k</p>
-                    <p class="reaction">🍆🍑💚 </p>
-                    <p class="description">Video description goes here. This is a placeholder for the video description. This is an expanded description</p>
-                </div>
-                <div id="commentSection">
-                </div>
-            </div>
-            <div class="video">
-                <video autoplay>
-                    <source src="./media/clips/counter_strike_2_3.mp4" type="video/mp4">
-                </video>
-                <div id="info">
-                    <p class="viewCount">👁 520</p>
-                    <p class="reaction">🍆🍑💚 </p>
-                    <p class="description">Video description goes here. This is a placeholder for the video description. This is an expanded description with more details about the video content.</p>
-                </div>
-                <div id="commentSection">
-                    <div class="userComments">
-                        <span class="user">User:1</span>
-                        <span class="comment">Great video!</span>
-                    </div>
-                </div>
-            </div>
-            <div class="video"></div>
-            <div class="video"></div>
-            <div class="video"></div>
         </div>
     </div>
 
-    <script>
-        main();
-    </script>
+    <script src="framework/content/control.js"></script>
 </body>
 </html>

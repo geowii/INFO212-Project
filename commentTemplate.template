@@ -1,0 +1,8 @@
+<div class=\"userComments\">
+<span class=\"user\">
+###CONTENT: USERNAME
+</span>
+<span class=\"comment\">
+###CONTENT: COMMENT_CONTENT
+</span>
+</div>

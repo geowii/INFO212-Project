@@ -1,27 +1,21 @@
 <div class="video">
 <video autoplay>
 <source src="
-###CONTENT:
+###CONTENT: SOURCE
 " type="video/mp4">
 </video>
 <div id="info">
 <p class="viewCount">
-###CONTENT:
+###CONTENT: VIEWS
 </p>
 <p class="reaction">
-###CONTENT:
+###CONTENT: EMOJIS
 </p>
 <p class="description">
-###CONTENT:
+###CONTENT: DESCRIPTION
 </p>
 </div>
 <div id="commentSection">
-<div class="userComments">
-<span class="user">
-###CONTENT:
-</span>
-<span class="comment">
-###CONTENT: 
-</span>
+###CONTENT: COMMENT_SHORT
 </div>
 </div>

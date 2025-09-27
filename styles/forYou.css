@@ -45,6 +45,7 @@ h1 {
 .video {
     min-height: 85vh;
     min-width: 35vw;
+    background-color: black;
     scroll-snap-align: start;
     border-radius: 15px;
 }
@@ -59,14 +60,14 @@ video {
 #info {
     min-height: 80vh;
     position: relative;
-    bottom: 82vh;
+    bottom: 115vh;
 }
 
 .viewCount {
     color: white;
     position: absolute;
     bottom: 24vh;
-    right: 0;
+    right: 0.5em;
     font-family: sans-serif;
     font-size: 1.2em;
 }
@@ -76,7 +77,7 @@ video {
     width: 5vh;
     position: absolute;
     bottom: 25vh;
-    right: 0;
+    right: 0.2em;
     font-size: 2em;
 }
 
@@ -86,7 +87,7 @@ video {
     margin-left: 1em;
     position: absolute;
     height: 2vh;
-    bottom: 10vh;
+    bottom: -15vh;
     overflow: hidden;
 }
 
@@ -100,7 +101,7 @@ video {
 
 #commentSection {
     position: relative;
-    bottom: 95vh;
+    bottom: 103vh;
     min-height: 12vh;
     min-width: 50vw;
     color: white;

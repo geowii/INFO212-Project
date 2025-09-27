@@ -16,8 +16,8 @@ class ContentTemplate {
 
 class ContentGenerator {
     static #syntaxContent = "###CONTENT:"
-    static #mainTemplate = new ContentTemplate(new TextFileYes("<div class=\"mainVideo\"> <div class=video> <img src=\"\n###CONTENT: SOURCE\n\" alt=\"\n###CONTENT: TITLE\n\"> </div> <div id=\"info\"> <p id=\"views\"></p>👁 \n###CONTENT: VIEWS\n</p> <p id=\"emoji\">\n###CONTENT: EMOJI\n</p> </div> <div class=\"descriptionDiv\"> <p id=\"description\"></p>\n###CONTENT: DESCRIPTION_SHORT\n</p> </p><div class=\"comment section\"><h2 id=\"comments\">Comments:</h2> <div class=\"comment_space\"> \n###CONTENT: COMMENT_SHORT\n</div> </div>"));
-    static #commentTemplate = new ContentTemplate(new TextFileYes("<div class=\"comment\"> <span class=\"comment_username\">\n###CONTENT: USERNAME\n</span> <p class=\"comment_content\" id=\"comments\">\n###CONTENT: COMMENT_CONTENT\n</p></div>"));
+    static #mainTemplate = new ContentTemplate(new TextFileYes("<div class=\"video\"><video autoplay><source src=\"\n###CONTENT: SOURCE\n\" type=\"video/mp4\"></video><div id=\"info\"><p class=\"viewCount\">\n###CONTENT: VIEWS\n</p><p class=\"reaction\">\n###CONTENT: EMOJIS\n</p><p class=\"description\">\n###CONTENT: DESCRIPTION\n</p></div><div id=\"commentSection\">\n###CONTENT: COMMENT_SHORT\n</div></div>"));
+    static #commentTemplate = new ContentTemplate(new TextFileYes("<div class=\"userComments\"><span class=\"user\">\n###CONTENT: USERNAME\n</span><span class=\"comment\">\n###CONTENT: COMMENT_CONTENT\n</span></div>"));
 
     /** generate main content from content data
      * 
