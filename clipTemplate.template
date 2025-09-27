@@ -1,12 +1,27 @@
 <div class="video">
 <video autoplay>
-<source src="./media/clips/fortnite_1.mp4" type="video/mp4">
+<source src="
+###CONTENT:
+" type="video/mp4">
 </video>
 <div id="info">
-<p class="viewCount">👁 420k</p>
-<p class="reaction">🍆🍑💚 </p>
-<p class="description">Video description goes here. This is a placeholder for the video description. This is an expanded description</p>
+<p class="viewCount">
+###CONTENT:
+</p>
+<p class="reaction">
+###CONTENT:
+</p>
+<p class="description">
+###CONTENT:
+</p>
 </div>
 <div id="commentSection">
+<div class="userComments">
+<span class="user">
+###CONTENT:
+</span>
+<span class="comment">
+###CONTENT: 
+</span>
 </div>
 </div>
