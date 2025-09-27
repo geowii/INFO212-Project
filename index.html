@@ -7,57 +7,52 @@
     <link rel="stylesheet" href="./styles/forYou.css">
     <script src="./script/forYou.js"></script>
 </head>
-<body>
-    <div class ="headers">
-        <div id="header">
+
+<body style="display: grid; background-color: #272725;">
+    <div style="text-align: center;">
+        <div class="header" id="yourPage">
             <h1>Your</h1>
         </div>
-        <div id="header">
+        <div class="header" id="forYouPage">
             <h1>For You</h1>
         </div>
-        <div id="header">
+        <div class="header" id="uploadPage">
             <h1>Discover</h1>
         </div>
     </div>
-    <div id="contentMain">
-        <div class="mainVideo">
-            <div class=video>
-                <img src="./media/pictures/clair-obscur.jpg" alt="clair-obscur">
-            </div>
+    <div id="outerLayer">
+        <div class="clipsContainer">
+            <div class="video">
+                <video autoplay>
+                    <source src="./media/clips/fortnite_1.mp4" type="video/mp4">
+                </video>
                 <div id="info">
-                    <p id="views">👁 420k</p>
-                    <p id="emoji">🍆🍑💚 </p>
+                    <p class="viewCount">👁 420k</p>
+                    <p class="reaction">🍆🍑💚 </p>
+                    <p class="description">Video description goes here. This is a placeholder for the video description. This is an expanded description</p>
                 </div>
-            
-                <div class="descriptionDiv">
-                    <p id="description">Video description goes here. This is a placeholder for the video description. MORE...</p>
-
+                <div id="commentSection">
                 </div>
-        </div>
-
-        <div class="mainVideo">
-            <div class=video>
-                <img src="./media/pictures/clair-obscur.jpg" alt="clair-obscur">
             </div>
+            <div class="video">
+                <video autoplay>
+                    <source src="./media/clips/counter_strike_2_3.mp4" type="video/mp4">
+                </video>
                 <div id="info">
-                    <p id="views">👁 420k</p>
-                    <p id="emoji">🍆🍑💚 </p>
+                    <p class="viewCount">👁 520</p>
+                    <p class="reaction">🍆🍑💚 </p>
+                    <p class="description">Video description goes here. This is a placeholder for the video description. This is an expanded description with more details about the video content.</p>
                 </div>
-            
-                <div class="descriptionDiv">
-                    <p id="description">Video description goes here. This is a placeholder for the video description. This is an expanded description with more details about the video content.</p>
-
-                <div class="comment section">
-                    <h2 id="comments">Comments:</h2>
-                    <div class="comment_space">
-                    <div class="comment">
-                        <span class="comment_username">User1</span>
-                        <p class="comment_content" id="comments">Great video!</p>
-                    </div>
+                <div id="commentSection">
+                    <div class="userComments">
+                        <span class="user">User:1</span>
+                        <span class="comment">Great video!</span>
                     </div>
                 </div>
-
-                </div>
+            </div>
+            <div class="video"></div>
+            <div class="video"></div>
+            <div class="video"></div>
         </div>
     </div>
 

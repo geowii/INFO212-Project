@@ -1,8 +1,4 @@
-.headers {
-    text-align: center;
-}
-
-#header {
+.header {
     display: inline-grid;
     margin: 5px;
     padding: 5px;
@@ -17,27 +13,81 @@ h1 {
     font-size: 16px;
     font-family: sans-serif;
     color: #1e8419;
-
 }
 
-img {
-    width: 300px;
-    height: 350px;
+#outerLayer {
+    height: 90vh;
+    width: 38vw;
+    position: relative;
+    left: 30vw;
+    border-radius: 15px;
+    border: #1e8419 solid 10px;
+    background-color: #4d4d4c;
+    display: flex; 
+    justify-content: center;
+}
+
+.clipsContainer {
+    height: 85vh;
+    width: 35vw;
+    margin-top: 2em;
+    display: flex;
+    overflow: auto;
+    gap: 2em;
+    flex-direction: column;
+    scroll-snap-type: y mandatory;
+}
+
+.clipsContainer::-webkit-scrollbar{
+    display: none;
+}
+
+.video {
+    min-height: 85vh;
+    min-width: 35vw;
+    scroll-snap-align: start;
+    border-radius: 15px;
+}
+
+video {
+    width: 35vw;
+    height: 85vh;
     overflow: hidden;
     border-radius: 15px;
 }
 
-.video {
-    display: grid;
-    margin: 10px;
-    padding: 10px;
-    
+#info {
+    min-height: 80vh;
+    position: relative;
+    bottom: 82vh;
 }
 
-.descriptionDiv { 
-    margin-top: auto;
-    height: relative;
-    width: relative;
+.viewCount {
+    color: white;
+    position: absolute;
+    bottom: 24vh;
+    right: 0;
+    font-family: sans-serif;
+    font-size: 1.2em;
+}
+
+.reaction {
+    height: 15vh;
+    width: 5vh;
+    position: absolute;
+    bottom: 25vh;
+    right: 0;
+    font-size: 2em;
+}
+
+.description {
+    font-family: sans-serif;
+    color: white;
+    margin-left: 1em;
+    position: absolute;
+    height: 2vh;
+    bottom: 10vh;
+    overflow: hidden;
 }
 
 #description {
@@ -48,74 +98,28 @@ img {
     position: bottom;
 }
 
-.mainVideo {
+#commentSection {
     position: relative;
-    display: grid;
-    margin-right: 520px;
-    margin-left: 520px;
-    height: 650px;
-    padding: 10px;
-    border-radius: 15px;
-    border: #1e8419 solid 10px;
-    background-color: #4d4d4c;
-    overflow: hidden;
-}
-
-.mainVideo .video img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    border-radius: 15px;
-}
-
-.mainVideo > *:not(.video) {
-    position: relative;
-    z-index: 1;
-}
-
-body {
-    display: grid;
-    background-color: #272725;
-}
-
-#info {
-    position: center;
-    height: 60px;
-    width: 90px;
-    margin-top: auto;
-    position: absolute; bottom: 140px;  
-    padding-bottom: 5px;
-    margin-left: 280px;
-
-}
-
-#views, #emoji {
-    display: inline-grid;
-    margin: 5px;
-    padding: 5px;
-    width: 80px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    border-radius: 15px;
-    margin-top: auto;
+    bottom: 95vh;
+    min-height: 12vh;
+    min-width: 50vw;
     color: white;
 }
 
-.comment section {
-    display: inline-grid;
-    margin: 5px;
-    padding: 5px;
-    width: 80px;
+.userComments {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin: 1.5em;
 }
 
-#comments {
+.user {
     font-family: sans-serif;
-    font-size: 14px;
-    padding: 0px;
-    margin: 0px;
-    color: white;
+    font-size: 0.8em;
+    margin-right: 1em;
+}
+
+.comment {
+    font-family: sans-serif;
+    font-size: 0.8em;
 }
