@@ -1,14 +1,33 @@
 <!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset = "UTF-8">
-            <title> TEST PAGE </title>
-        </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For you</title>
+    <link rel="stylesheet" href="./styles/forYou.css">
+    <script src="./content/feed_algorithm.js"></script>
+    <script src="./content/access_system.js"></script>
+    <script src="./content/profile.js"></script>
+    <script src="./content/content_data.js"></script>
+    <script src="./content/content_generator.js"></script>
+</head>
+<body>
+    <div class ="headers">
+        <button id="generateButton">generate</button>
+        <div id="header">
+            <h1>Your</h1>
+        </div>
+        <div id="header">
+            <h1>For You</h1>
+        </div>
+        <div id="header">
+            <h1>Discover</h1>
+        </div>
+    </div>
+    
+    <div class="ClipsContainer" id="ClipsContainer">
+    </div>
         
-        <body>
-            <div id="content"> </div>
-            <button id="generate" type="button">new</button>
-
-            <script src="content/content_generator.js"> </script>
-        </body>
-    </html>
+    <script src="./content/control.js"></script>
+</body>
+</html>
