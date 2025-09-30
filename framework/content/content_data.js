@@ -41,7 +41,7 @@ class DataContentMain {
     }
 
     getProfile() {
-        return this.#account;
+        return this.#account.getProfile();
     }
     getVideo() {
         return this.#video;
@@ -122,6 +122,10 @@ class DataCommentSet {
     }
     getSize() {
         return this.#list.length;
+    }
+
+    isEmpty() {
+        return this.#list.length == 0;
     }
 }
 

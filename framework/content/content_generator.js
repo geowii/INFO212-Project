@@ -26,6 +26,8 @@ class ContentGenerator {
      * @return String, html with content data
      */
     static genMainFrom( _dataContentMain ) {
+        if( _dataContentMain == null ) return "";
+
         var _html = [];
         var _lines = ContentGenerator.#mainTemplate.getLines();
         for( var _i = 0; _i < _lines.length; _i ++ )
@@ -53,6 +55,8 @@ class ContentGenerator {
      * @return String, html with content data
      */
     static genCommentFrom( _dataCommentMain ) {
+        if( _dataCommentMain == null ) return "";
+
         var _html = [];
         var _lines = ContentGenerator.#commentTemplate.getLines();
         for( var _i = 0; _i < _lines.length; _i ++ )
@@ -75,6 +79,8 @@ class ContentGenerator {
      * @return String, html with content data
      */
     static genCommentReducedFrom( _dataCommentMain ) {
+        if( _dataCommentMain == null ) return "";
+        
         var _html = [];
         var _lines = ContentGenerator.#commentTemplate.getLines();
         for( var _i = 0; _i < _lines.length; _i ++ )

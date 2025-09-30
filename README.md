@@ -1,5 +1,9 @@
 # INFO212-Project
 
+** TO SEE TESTS GO TO "database/framework/test/" and run "test.html" **
+
+
+
 **Description**
 
 *Focus group*
