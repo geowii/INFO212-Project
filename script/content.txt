@@ -1,0 +1,32 @@
+<div class=\"video\"id=\"###CONTENT: ID\">
+            <video autoplay loop muted>
+          <source src=\"\n###CONTENT: SOURCE\" type=\"video/mp4\">
+        </video>
+
+        <div id=\"info\">
+          <p class=\"viewCount\">\n###CONTENT: VIEWS\n</p>
+          <p class=\"reaction\">\n###CONTENT: EMOJIS\n</p>
+          <p class=\"description\">\n###CONTENT: DESCRIPTION_SHORT\n</p>
+        </div>
+
+        <div id=\"commentSection\">
+          <div class=\"userComments\">
+            \n###CONTENT: COMMENT_SHORT\n
+          </div>
+        </div>
+
+        <!-- Comment Side Panel -->
+        <div class=\"wrapper\">
+          <button onclick="" class=\"side-panel-toggle\" type=\"button\">
+            <span class=\"sp-icon-open\">←</span>
+            <span class=\"sp-icon-close\">→</span>
+          </button>
+
+          <div class="side-panel">
+            <h3>Comments</h3>
+            <div>
+                \n###CONTENT: COMMENT_SHORT\n
+            </div>
+          </div>
+        </div>
+      </div>

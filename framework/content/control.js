@@ -13,9 +13,8 @@ function moveDown() {
     viewer.moveDown();
 }
 
-
 addEventListener("load", function() { viewer.loadInitial(); });
-contentSpace.addEventListener("scroll", function() { viewer.scroll(); });
+contentSpace.addEventListener("scroll", function( _event ) { viewer.scroll(_event); });
 buttonUp.addEventListener("click", moveUp);
 buttonDown.addEventListener("click", moveDown);
 

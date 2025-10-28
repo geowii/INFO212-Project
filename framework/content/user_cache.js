@@ -135,16 +135,22 @@ class DualSequence {
 }
 
 class ContentViewer {
+    static #scrollDelay = 1000;
+    static #scrollThreshold = 0;
+    static #scrollResetThreshold = 40;
+
     #htmlContext;
     #cache;
     #algorithm;
     #loaded;
+    #scrollTimer;
 
     constructor( _htmlContext, _algorithm ) {
         this.#htmlContext = _htmlContext;
         this.#cache = new ContentCache(_algorithm);
         this.#algorithm = _algorithm;
         this.#loaded = false;
+        this.#scrollTimer = 0;
     }
     start() {
         this.#cache.start();
@@ -159,27 +165,42 @@ class ContentViewer {
     }
 
     scroll( _event ) {
-        if( this.scrolledBottom() )
-            this.moveDown();
-        if( this.scrolledTop() )
-            this.moveUp();
-        if( this.scrolledMiddle() )
+        if( this.#scrollTimer + ContentViewer.#scrollDelay > Date.now() ) {
+            this.#htmlContext.style.scrollSnapType = "none";
             this.scrollReset();
+            _event.preventDefault();
+            _event.stopPropagation();
+        }
+        else {
+            this.#htmlContext.style.scrollSnapType = "y mandatory";
+            if( this.scrolledBottom() )
+                this.moveDown();
+            else if( this.scrolledTop() )
+                this.moveUp();
+            else if( this.scrolledMiddle() )
+                this.scrollReset();
+        }
     }
     scrolledBottom() {
-        return this.#htmlContext.scrollTop >= this.#htmlContext.scrollHeight - this.#htmlContext.clientHeight - 100;
+        return this.#htmlContext.scrollTop >= this.#htmlContext.scrollHeight - this.#htmlContext.clientHeight - ContentViewer.#scrollThreshold;
     }
     scrolledTop() {
-        return this.#htmlContext.scrollTop <= 100;
+        return this.#htmlContext.scrollTop <= ContentViewer.#scrollThreshold;
     }
     scrolledMiddle() {
-        return Math.abs(this.#htmlContext.scrollTop - (this.#htmlContext.scrollHeight / 3)) <= 80;
+        return Math.abs(this.#htmlContext.scrollTop - (this.#htmlContext.scrollHeight / 3)) <=  ContentViewer.#scrollResetThreshold;
     }
     scrollReset() {
         this.#htmlContext.scrollTo(0, (this.#htmlContext.scrollHeight / 3));
     }
+    #scrollTimerReset() {
+        console.log("aaa");
+        this.#scrollTimer = Date.now();
+        this.#htmlContext.style.scrollSnapType = "none";
+    }
 
     moveUp() {
+        this.#scrollTimerReset();
         var _ids = this.#cache.moveUp();
         if( _ids == null )
             return console.log("reached top");
@@ -189,6 +210,7 @@ class ContentViewer {
         this.scrollReset();
     }
     moveDown() {
+        this.#scrollTimerReset();
         var _ids = this.#cache.moveDown();
         if( _ids == null )
             return console.log("reached bottom");
@@ -202,17 +224,32 @@ class ContentViewer {
         if( _algoId == null || _instanceId == null ) return;
         var _content = this.#algorithm.getContent(_algoId);
         _content.setId(_instanceId);
-        this.#htmlContext.innerHTML = ContentGenerator.genMainFrom(_content) + this.#htmlContext.innerHTML;
+        var _element = document.createElement("div");
+        _element.innerHTML = ContentGenerator.genMainFrom(_content);
+        _element = _element.firstChild;
+        this.#bindFunctions(_element);
+        this.#htmlContext.insertBefore(_element, this.#htmlContext.firstChild);
     }
     #addElementDown( _algoId, _instanceId ) {
         if( _algoId == null || _instanceId == null ) return;
         var _content = this.#algorithm.getContent(_algoId);
         _content.setId(_instanceId);
-        this.#htmlContext.innerHTML += ContentGenerator.genMainFrom(_content);
+        var _element = document.createElement("div");
+        _element.innerHTML = ContentGenerator.genMainFrom(_content);
+        _element = _element.firstChild;
+        this.#bindFunctions(_element);
+        this.#htmlContext.appendChild(_element);
     }
     #removeElement( _instanceId ) {
         var _element = document.getElementById(_instanceId);
         if( _element == null ) return;
         this.#htmlContext.removeChild(_element);
+    }
+
+    #bindFunctions( _element ) {
+        var _wrapper = _element.querySelector(".wrapper");
+        _wrapper.querySelector(".side-panel-toggle").addEventListener("click", function() {
+            _wrapper.classList.toggle("side-panel-open");
+        });
     }
 }
