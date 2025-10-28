@@ -20,12 +20,15 @@ class FeedAlgorithm {
     genForUser( _abstractMysteryVerificationThing ) {
         return new DataContentMain();
     }
+    /**
+     * @return algo id of content
+     */
     genForRandom() {
-        return this.#list[Math.floor(Math.random() * this.#list.length)];
+        return Math.floor(Math.random() * this.#list.length);
     }
-    genForSequence( _id ) {
-        if( _id >= this.#list.length ) return null;
-        return this.#list[_id];
+    getContent( _algoId ) {
+        if( _algoId >= this.#list.length || _algoId < 0 ) return null;
+        return this.#list[_algoId];
     }
 }
 

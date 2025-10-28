@@ -1,0 +1,218 @@
+class ContentCache {
+    static #VIEW_DISTANCE_UP = 1;
+    static #VIEW_DISTANCE_DOWN = 1;
+    #viewDistanceUp;
+    #viewDistanceDown;
+    #algorithm;
+    #contentCached;
+    #contentActive;
+    #currentIdFillup;
+
+    constructor( _algorithm ) {
+        this.#viewDistanceUp = ContentCache.#VIEW_DISTANCE_UP;
+        this.#viewDistanceDown = ContentCache.#VIEW_DISTANCE_DOWN;
+
+        this.#algorithm = _algorithm;
+        this.#contentCached = new DualSequence();
+        this.#contentActive = new ModularSpiral(this.#viewDistanceUp + this.#viewDistanceDown + 1, this.#viewDistanceDown);
+    
+        this.#currentIdFillup = 0;
+    }
+
+    start() {
+        for( var _i = 0; _i < this.#viewDistanceUp + this.#viewDistanceDown + 1; _i ++ )
+            this.#contentCached.enqueue(this.#fetchNext());
+        
+        for( var _i = 0; _i < this.#viewDistanceDown; _i ++ ) {
+            var _next = this.#contentCached.dequeue();
+            this.#contentActive.increase(_next);
+        }
+    }
+    #fetchNext() {
+        return [this.#algorithm.genForRandom(), this.#newId()];
+    }
+    #newId() {
+        this.#currentIdFillup ++;
+        this.#currentIdFillup %= 4294967296;
+        return this.#currentIdFillup;
+    }
+
+    moveDown() {
+        if( this.#contentCached.emptyDown() )
+            this.#contentCached.enqueue(this.#fetchNext());
+        
+        var _unload = this.#contentActive.unread();
+        if( _unload != null )
+            this.#contentCached.stack(_unload);
+        var _load = this.#contentCached.dequeue();
+        this.#contentActive.increase(_load);
+        return [_load, _unload];
+    }
+    moveUp() {
+        if( this.#contentCached.emptyUp() )
+            return;
+        
+        var _unload = this.#contentActive.unread();
+        if( _unload != null )
+            this.#contentCached.requeue(_unload);
+        var _load = this.#contentCached.unstack();
+        this.#contentActive.decrease(_load);
+        return [_load, _unload];
+    }
+    current() {
+        return this.#contentActive.read();
+    }
+}
+
+class ModularSpiral {
+    #list;
+    #current;
+    #modulo;
+    #horizon;
+
+     constructor( _modulo, _horizon ) {
+        this.#list = [];
+        for( var _i = _modulo; _i > 0; _i -- )
+            this.#list.push(null);
+        this.#current = 0;
+        this.#modulo = _modulo;
+        this.#horizon = _horizon;
+    }
+
+    read() {
+        return this.#list[this.#current];
+    }
+    unread() {
+        return this.#list[(this.#current + this.#horizon) % this.#modulo];
+    }
+    increase( _entry ) {
+        this.#list[(this.#current + this.#horizon) % this.#modulo] = _entry;
+        this.#current ++;
+        this.#current %= this.#modulo;
+    }
+    decrease( _entry ) {
+        this.#list[(this.#current + this.#horizon) % this.#modulo] = _entry;
+        this.#current += this.#modulo - 1;
+        this.#current %= this.#modulo;
+    }
+}
+
+class DualSequence {
+    #stackUp;
+    #queueDown;
+
+    constructor() {
+        this.#stackUp = [];
+        this.#queueDown = [];
+    }
+    
+    enqueue( _object ) {
+        this.#queueDown.unshift(_object);
+    }
+    requeue( _object ) {
+        this.#queueDown.push(_object);
+    }
+    dequeue() {
+        var _object = this.#queueDown.pop();
+        if( _object == undefined ) return null;
+        return _object;
+    }
+    stack( _object ) {
+        this.#stackUp.push(_object);
+    }
+    unstack() {
+        var _object = this.#stackUp.pop();
+        if( _object == undefined ) return null;
+        return _object;
+    }
+
+    emptyUp() {
+        return (this.#stackUp.length == 0);
+    }
+    emptyDown() {
+        return (this.#queueDown.length == 0);
+    }
+}
+
+class ContentViewer {
+    #htmlContext;
+    #cache;
+    #algorithm;
+    #loaded;
+
+    constructor( _htmlContext, _algorithm ) {
+        this.#htmlContext = _htmlContext;
+        this.#cache = new ContentCache(_algorithm);
+        this.#algorithm = _algorithm;
+        this.#loaded = false;
+    }
+    start() {
+        this.#cache.start();
+    }
+    loadInitial() {
+        if( this.#loaded )
+            return;
+        this.moveDown();
+        this.moveDown();
+        this.moveDown();
+        this.#loaded = true;
+    }
+
+    scroll( _event ) {
+        if( this.scrolledBottom() )
+            this.moveDown();
+        if( this.scrolledTop() )
+            this.moveUp();
+        if( this.scrolledMiddle() )
+            this.scrollReset();
+    }
+    scrolledBottom() {
+        return this.#htmlContext.scrollTop >= this.#htmlContext.scrollHeight - this.#htmlContext.clientHeight - 100;
+    }
+    scrolledTop() {
+        return this.#htmlContext.scrollTop <= 100;
+    }
+    scrolledMiddle() {
+        return Math.abs(this.#htmlContext.scrollTop - (this.#htmlContext.scrollHeight / 3)) <= 80;
+    }
+    scrollReset() {
+        this.#htmlContext.scrollTo(0, (this.#htmlContext.scrollHeight / 3));
+    }
+
+    moveUp() {
+        var _ids = this.#cache.moveUp();
+        if( _ids == null )
+            return console.log("reached top");
+        this.#addElementUp(_ids[0][0], _ids[0][1]);
+        if( _ids[1] != null )
+            this.#removeElement(_ids[1][1]);
+        this.scrollReset();
+    }
+    moveDown() {
+        var _ids = this.#cache.moveDown();
+        if( _ids == null )
+            return console.log("reached bottom");
+        this.#addElementDown(_ids[0][0], _ids[0][1]);
+        if( _ids[1] != null )
+            this.#removeElement(_ids[1][1]);
+        this.scrollReset();
+    }
+
+    #addElementUp( _algoId, _instanceId ) {
+        if( _algoId == null || _instanceId == null ) return;
+        var _content = this.#algorithm.getContent(_algoId);
+        _content.setId(_instanceId);
+        this.#htmlContext.innerHTML = ContentGenerator.genMainFrom(_content) + this.#htmlContext.innerHTML;
+    }
+    #addElementDown( _algoId, _instanceId ) {
+        if( _algoId == null || _instanceId == null ) return;
+        var _content = this.#algorithm.getContent(_algoId);
+        _content.setId(_instanceId);
+        this.#htmlContext.innerHTML += ContentGenerator.genMainFrom(_content);
+    }
+    #removeElement( _instanceId ) {
+        var _element = document.getElementById(_instanceId);
+        if( _element == null ) return;
+        this.#htmlContext.removeChild(_element);
+    }
+}

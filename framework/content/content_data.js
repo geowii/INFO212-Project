@@ -14,6 +14,7 @@ class DataContentMain {
     #views;
     #emojis;
     #source;
+    #contentId;
 
     /** constructor for base content
      * 
@@ -30,7 +31,7 @@ class DataContentMain {
         this.#comments = new DataCommentSet();
     }*/
 
-    constructor( _account, _source, _views, _emojis, _title, _description ) {
+    constructor( _account, _source, _views, _emojis, _title, _description, _contentId ) {
         this.#account = _account;
         this.#views = _views;
         this.#emojis = _emojis;
@@ -38,6 +39,7 @@ class DataContentMain {
         this.#title = _title;
         this.#description = _description;
         this.#comments = new DataCommentSet();
+        this.#contentId = _contentId;
     }
 
     getProfile() {
@@ -64,7 +66,13 @@ class DataContentMain {
     getSource() {
         return this.#source;
     }
+    getId() {
+        return this.#contentId;
+    }
 
+    setId( _contentId ) {
+        this.#contentId = _contentId;
+    }
     setTitle( _verificaionKey, _title ) {
         if( !this.#account.verify(_verificationKey) )
             return false;
