@@ -1,3 +1,5 @@
 function main() {
-    const btnForYou = document.getElementById("");
+    document.addEventListener("scrollend", (event) => {
+        console.log("user stopped scrolling");
+    });
 }
