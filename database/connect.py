@@ -97,13 +97,13 @@ def getAll(mode):
         for row in cursor.fetchall():
             print(row)
             result.append(row)
+        return result
     except sqlite3.Error as error:
         print(error)
 
     finally:
         conn.commit()
         conn.close()
-        return result
 
 def update(data, idNumber, mode):
     delete(idNumber, mode)
@@ -150,6 +150,7 @@ def customQuery(query):
         for row in cursor.fetchall():
             result.append(row)
             print(row)
+        return result
 
     except sqlite3.Error as error:
         print(error)
@@ -158,7 +159,6 @@ def customQuery(query):
     finally:
         conn.commit()
         conn.close()
-        return result
 
 def checkData(data):
     pass
