@@ -35,7 +35,6 @@ h1 {
     overflow: auto;
     gap: 2em;
     flex-direction: column;
-    scroll-snap-type: y mandatory;
 }
 
 .clipsContainer::-webkit-scrollbar{
@@ -43,11 +42,14 @@ h1 {
 }
 
 .video {
-    min-height: 85vh;
-    min-width: 35vw;
-    background-color: black;
-    scroll-snap-align: start;
-    border-radius: 15px;
+  position: relative; 
+  min-height: 85vh;
+  width: 35vw;
+  background-color: black;
+  scroll-snap-align: start;
+  border-radius: 15px;
+  overflow: hidden;
+  height: 600px;
 }
 
 video {
@@ -123,4 +125,71 @@ video {
 .comment {
     font-family: sans-serif;
     font-size: 0.8em;
+}
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.side-panel-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: #03f0c1;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 20;
+  transition: right 0.3s ease;
+}
+
+.side-panel-toggle:hover {
+  background: #007960;
+}
+
+.side-panel {
+  position: absolute;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 300px;
+  background: rgba(0, 149, 120, 0.97);
+  color: white;
+  padding: 20px;
+  box-shadow: -3px 0 10px rgba(0, 0, 0, 0.35);
+  transition: right 0.3s ease;
+  pointer-events: auto;
+  overflow-y: auto;
+  z-index: 15;
+}
+
+.side-panel-open .side-panel {
+  right: 0;
+}
+
+.side-panel-open .side-panel-toggle {
+  right: 310px;
+}
+
+.sp-icon-close {
+  display: none;
+}
+
+.side-panel-open .sp-icon-open {
+  display: none;
+}
+
+.side-panel-open .sp-icon-close {
+  display: block;
 }
