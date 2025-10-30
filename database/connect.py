@@ -83,6 +83,10 @@ def delete(idNumber, mode):
         conn.commit()
         conn.close()
 
+def update(data, idNumber, mode):
+    delete(idNumber, mode)
+    insert(data, mode)
+
 def getAll(mode):
     result = []
     modes = ["users", "content", "user_comment", "user_interactions"]
@@ -108,6 +112,7 @@ def getAll(mode):
         cursor.execute(options[mode])
 
         print('Data gathered: ')
+        result.append(mode)
         for row in cursor.fetchall():
             result.append(row)
         print(result)
@@ -119,10 +124,6 @@ def getAll(mode):
     finally:
         conn.commit()
         conn.close()
-
-def update(data, idNumber, mode):
-    delete(idNumber, mode)
-    insert(data, mode)
 
 def delAll(mode):
     modes = ["users", "content", "user_comment", "user_interactions"]
