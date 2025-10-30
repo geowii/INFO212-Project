@@ -10,7 +10,7 @@ _testPost1 = new DataContentMain(_testAccount0, "media/clips/counter_strike_2_5.
 _testAlgo.add(_testPost1);
 
 console.log("TEST_feed_algorithm.js");
-NyanTest.assertEquals(_testAlgo.genForSequence(0), _testPost0);
-NyanTest.assertEquals(_testAlgo.genForSequence(1), _testPost1);
-NyanTest.assertEquals(_testAlgo.genForSequence(2), null);
+NyanTest.assertEquals(_testAlgo.getContent(0), _testPost0);
+NyanTest.assertEquals(_testAlgo.getContent(1), _testPost1);
+NyanTest.assertEquals(_testAlgo.getContent(2), null);
 }

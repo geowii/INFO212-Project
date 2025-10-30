@@ -1,12 +1,22 @@
 contentSpace = document.getElementsByClassName("clipsContainer")[0];
-generateButton = document.getElementById("generateButton");
+buttonUp = document.getElementById("buttonUp");
+buttonDown = document.getElementById("buttonDown");
 
 algo = new FeedAlgorithm();
 
-function generate() {
-    contentSpace.innerHTML += ContentGenerator.genMainFrom(algo.genForRandom());
+viewer = new ContentViewer(contentSpace, algo);
+
+function moveUp() {
+    viewer.moveUp();
 }
-generateButton.addEventListener("click", generate);
+function moveDown() {
+    viewer.moveDown();
+}
+
+addEventListener("load", function() { viewer.loadInitial(); });
+contentSpace.addEventListener("scroll", function( _event ) { viewer.scroll(_event); });
+buttonUp.addEventListener("click", moveUp);
+buttonDown.addEventListener("click", moveDown);
 
 
 
@@ -32,5 +42,7 @@ algo.add(post3);
 post4 = new DataContentMain(account1, "media/clips/fortnite_3.mp4", "69 trillion", "🍆🍑💚", "title", "description");
 post4.addComment(new DataComment(account1, "", "based opinion mate, what are your thoughts on current issues"));
 algo.add(post4);
+
+viewer.start();
 
 
