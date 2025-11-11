@@ -194,7 +194,6 @@ class ContentViewer {
         this.#htmlContext.scrollTo(0, (this.#htmlContext.scrollHeight / 3));
     }
     #scrollTimerReset() {
-        console.log("aaa");
         this.#scrollTimer = Date.now();
         this.#htmlContext.style.scrollSnapType = "none";
     }

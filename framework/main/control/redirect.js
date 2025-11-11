@@ -1,0 +1,1 @@
+window.location.replace("./user_interface/page/feed.html");
