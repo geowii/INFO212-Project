@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-db_path = os.path.abspath('gamertok.db')
+db_path = os.path.abspath('database.db')
 
 # try:
 #     connectionDB = sqlite3.connect("./database/gamertok.db")
@@ -28,10 +28,10 @@ def insert(data, mode):
     cursor = conn.cursor()
 
     options = {
-        'users': "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?)",
-        'content': "INSERT INTO content VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-        'user_comment': "INSERT INTO user_comment VALUES (?, ?, ?, ?, ?, ?, ?)",
-        'user_interactions': "INSERT INTO user_interactions VALUES (?, ?, ?, ?, ?, ?, ?)" 
+        'users': "INSERT INTO users VALUES (?, ?, ?, ?, ?)",
+        'content': "INSERT INTO content VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        'user_comment': "INSERT INTO user_comment VALUES (?, ?, ?, ?, ?, ?)",
+        'user_interactions': "INSERT INTO user_interactions VALUES (?, ?, ?, ?)" 
     }
 
     try: 
@@ -83,9 +83,67 @@ def delete(idNumber, mode):
         conn.commit()
         conn.close()
 
+def get(data, mode):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    options ={
+        'users': "SELECT * FROM users WHERE user_id=?",
+        'content': "SELECT * FROM content WHERE content_id=? AND user_id=?",
+        'user_comment': "SELECT * FROM user_comment WHERE content_id=? AND user_id=? AND comment=?",
+        'user_interactions': "SELECT * FROM user_interactions WHERE content_id=? AND user_id=?" 
+    }
+
+    try: 
+        optionsAfter = {
+            'users': "User gathered.",
+            'content': "Content gathered",
+            'user_comment': "User comment gathered",
+            'user_interactions': "User interaction gathered" 
+        }
+
+        cursor.execute(options[mode], data)
+        for row in cursor.fetchall():
+            return list(row)
+        print(optionsAfter[mode])
+
+    except sqlite3.Error as error:
+        print(error)
+
+    finally:
+        conn.commit()
+        conn.close()
+
 def update(data, idNumber, mode):
     delete(idNumber, mode)
-    insert(data, mode)
+    return insert(data, mode)
+
+def getAllCorI(idNumber, mode):
+    result = []
+    
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    options = {
+        'user_comment': "SELECT * FROM user_comment WHERE content_id=?",
+        'user_interactions': "SELECT * FROM user_interactions WHERE content_id=?" 
+    }
+
+    try:
+        cursor.execute(options[mode], [(idNumber)])
+
+        print('Data gathered: ')
+        for row in cursor.fetchall():
+            result.append(row)
+        print(result)
+        return result
+    except sqlite3.Error as error:
+        print(error)
+        return []
+
+    finally:
+        conn.commit()
+        conn.close()
 
 def getAll(mode):
     result = []
@@ -183,9 +241,6 @@ def customQuery(query):
     finally:
         conn.commit()
         conn.close()
-
-def checkData(data):
-    pass
 
 # Test av kode.
 # delAll("users")

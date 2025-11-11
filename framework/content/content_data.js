@@ -5,6 +5,8 @@ class ActualVideo {
 
 }
 
+import { getFromDB, getAllCorI } from '../database_con/js_tofrom_db.js';
+
 class DataContentMain {
     #account;
     #video;
@@ -31,15 +33,25 @@ class DataContentMain {
         this.#comments = new DataCommentSet();
     }*/
 
-    constructor( _account, _source, _views, _emojis, _title, _description, _contentId ) {
-        this.#account = _account;
-        this.#views = _views;
-        this.#emojis = _emojis;
-        this.#source = _source;
-        this.#title = _title;
-        this.#description = _description;
-        this.#comments = new DataCommentSet();
+    constructor( _contentId ) {
         this.#contentId = _contentId;
+        let tempContent = getFromDB('content', _contentId);
+        this.#account = getFromDB('users', tempContent[0]);
+        this.#views = tempContent[5];
+        let tempEmoji = '';
+        this.#emojis = getAllCorI('user_interactions', _contentId);
+        for(let i=0; i<this.#emojis.length; i++){
+            tempEmoji += this.#emojis[i][6];
+        }
+        this.#emojis = tempEmoji;
+        tempEmoji = '';
+        this.#source = tempContent[2];
+        this.#title = tempContent[3];
+        this.#description = tempContent[4];
+        tempContent = null;
+        let tempComment = getAllCorI('user_comment', _contentId);
+        this.#comments = new DataCommentSet(tempComment);
+        tempComment = null;
     }
 
     getProfile() {
@@ -96,6 +108,7 @@ class DataContentMain {
      * @return false, if unsuccessful
      */
     addComment( _comment ) {
+        insertIntoDB(['user_comment', [this.#account[0], this.#account[1], this.#contentId, _comment, 0, 0]])
         return this.#comments.addComment(_comment);
     }
 }
@@ -103,8 +116,11 @@ class DataContentMain {
 class DataCommentSet {
     #list;
 
-    constructor() {
+    constructor( _dbComments ) {
         this.#list = [];
+        for( _comment of _dbComments) {
+            this.#list.push(_comment[4]);
+        }
     }
 
     addComment( _comment ) {
@@ -190,7 +206,6 @@ class DataComment {
         return true;
     }
 }
-
 
 class TextFileYes {
     #string;

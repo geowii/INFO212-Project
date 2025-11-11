@@ -27,6 +27,22 @@ def delete():
     sql_result = c.delete(id_no, mode)
     return jsonify({'result': f"Successfully deleted: {sql_result}"})
 
+@app.route('/get', methods=['POST'])
+def get():
+    json_data = request.get_json()
+    mode = json_data[0]
+    data = tuple(json_data[1])
+    sql_result = c.get(data, mode)
+    return jsonify({'result': f"Successfully gathered: {sql_result}"})
+
+@app.route('/getAllCorI', methods=['POST'])
+def getAllCorI():
+    json_data = request.get_json()
+    mode = json_data[0]
+    id_no = json_data[1]
+    sql_result = c.getAllCorI(id_no, mode)
+    return jsonify({'result': f"Successfully gathered: {sql_result}"})
+
 @app.route('/getAll', methods=['GET'])
 def getAll():
     mode = request.args.get('mode')
