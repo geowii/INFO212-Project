@@ -136,7 +136,9 @@ class DualSequence {
 
 class ContentViewer {
     static #scrollDelay = 1000;
+    static #scrollThresholdRatio = 0;
     static #scrollThreshold = 0;
+    static #scrollResetThresholdRatio = 0.04;
     static #scrollResetThreshold = 40;
 
     #htmlContext;
@@ -198,6 +200,12 @@ class ContentViewer {
         this.#htmlContext.style.scrollSnapType = "none";
     }
 
+    resize( _event ) {
+        ContentViewer.#scrollThreshold = ContentViewer.#scrollThresholdRatio * window.innerHeight;
+        ContentViewer.#scrollResetThreshold = ContentViewer.#scrollResetThresholdRatio * window.innerHeight;
+        this.scrollReset();
+    }
+
     moveUp() {
         this.#scrollTimerReset();
         var _ids = this.#cache.moveUp();
@@ -246,9 +254,9 @@ class ContentViewer {
     }
 
     #bindFunctions( _element ) {
-        var _wrapper = _element.querySelector(".wrapper");
-        _wrapper.querySelector(".side-panel-toggle").addEventListener("click", function() {
-            _wrapper.classList.toggle("side-panel-open");
+        var _wrapper = _element.querySelector(".commentPanelWrapper");
+        _wrapper.querySelector(".commentPanelToggle").addEventListener("click", function() {
+            _wrapper.classList.toggle("commentPanelOpen");
         });
     }
 }

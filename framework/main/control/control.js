@@ -6,21 +6,15 @@ algo = new FeedAlgorithm();
 
 viewer = new ContentViewer(contentSpace, algo);
 
-function moveUp() {
-    viewer.moveUp();
-}
-function moveDown() {
-    viewer.moveDown();
-}
-
 addEventListener("load", function() { viewer.loadInitial(); });
 contentSpace.addEventListener("scroll", function( _event ) { viewer.scroll(_event); });
-buttonUp.addEventListener("click", moveUp);
-buttonDown.addEventListener("click", moveDown);
+buttonUp.addEventListener("click", function() { viewer.moveUp(); });
+buttonDown.addEventListener("click", function() { viewer.moveDown(); });
+addEventListener("resize",  function( _event ) { viewer.resize(_event) })
+
 
 
 _localEscape = "./../../";
-
 
 account0 = new Account("accountName", "ok");
 account1 = new Account("accountName2", "ya");
