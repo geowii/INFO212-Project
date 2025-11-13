@@ -5,22 +5,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="widrath=device-with, initial-scale=1.0">
-    <title>Gamer TikTok Uploader</title>
+    <title>GamerTok Uploader</title>
     <link rel="stylesheet" href="./styles/uploadPage.css">
 </head>
 
 <body>
     <div class="hero">
-        <label for="input-file" id="drop-area">
-            <input type="file" accept="video/*" id="input-file">
+        <label id="drop_area" for="input_file">
+            <input id="input_file" type="file" accept="video/*"  hidden>
             <div id="img-view">
-                
-                    <img src="./media/pictures/upload.png" width="180px" height="180px" alt="Upload" id="upload-icon"> 
-                
+
+                <img id="upload_icon" src="./media/pictures/upload.png" width="180px" height="180px" alt="Upload"> 
+
                 <p>Drag and drop or<br>click to upload content</p>
+                <button id="upload_button" class="upload_button" disabled >Upload</button>
+                <button id="clear_button" class="clear_button">Clear</button>
             </div>
         </label>
     </div>
+    <div id="fileMeta" class="meta"></div>
+
     <script src="uploadPage.js"></script>
 </body>
 
