@@ -1,9 +1,12 @@
+conDB = new DatabaseToFrom();
+
 class Profile {
     #name;
     #picture;
     #description;
     #account;
     #comments;
+    #init = false;
 
     /** constructor for new profile
      * 
@@ -12,15 +15,22 @@ class Profile {
      * @param {ActualImage} _image 
      * @param {String} _description 
      */
-    constructor( _account, _name, _image, _description ) {
+    constructor(_account, _name, _image, _description ) {
         this.#name = _name;
         this.#picture = _image;
         this.#description = _description;
         this.#account = _account;
-        this.#comments = new DataCommentSet();
+        this.#comments = undefined;
     }
 
-    
+    async init() {
+        if (this.#init) return this;
+
+        let tempComments = await conDB.getAllCorI(['user_comment', _account.getAccountId()]);
+        this.#comments = new DataCommentSet(Array(tempComments))
+        this.#init = true;
+        return this;
+    }
 
     getName() {
         return this.#name;

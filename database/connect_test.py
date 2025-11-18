@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-db_path = os.path.abspath('database.db')
+db_path = os.path.abspath('database_test.db')
 
 # try:
 #     connectionDB = sqlite3.connect("./database/gamertok.db")
