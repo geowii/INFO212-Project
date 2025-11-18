@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -14,32 +14,50 @@
 }
 
 #drop_area {
-    
     text-align: center;
     width: 550px;
-    height: 250px;
+    padding: 30px;
     border: 2px solid #278236;
     border-radius: 30px;
     cursor: pointer;
-    
+    color: white;
+}
+
+#drop_area.dragover {
+    background-color: rgba(255,255,255,0.1);
 }
 
 #img_view {
     display: flex;
     flex-direction: column;
+    gap: 15px;
     justify-content: center;
     align-items: center;
-    height: 1000%;
+    color: white;
+}
+
+#upload_icon:hover {
+    transform: scale(1.1);
+    opacity: 0.7;
+}
+
+#upload_button,
+#clear_button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+#upload_button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+.meta, .status {
+    margin-top: 20px;
+    text-align: center;
     color: white;
 }
 
 
-
-#upload_icon {
-    align-items: center;
-}
-
-#upload_icon:hover {
-    scale: 1.1;
-    opacity: 0.6;
-}
