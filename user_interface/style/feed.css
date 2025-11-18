@@ -31,6 +31,8 @@ h1 {
     height: 85vh;
     display: flex;
     overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     flex-direction: column;
 }
 
@@ -97,24 +99,6 @@ h1 {
     color: white;
 }
 
-.userComments {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    margin: 1.5em;
-}
-
-.user {
-    font-family: sans-serif;
-    font-size: 0.8em;
-    margin-right: 1em;
-}
-
-.comment {
-    font-family: sans-serif;
-    font-size: 0.8em;
-}
-
 .commentPanelWrapper {
     position: absolute;
     top: 0;
@@ -126,10 +110,10 @@ h1 {
 
 .commentPanelToggle {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
+    top: 25vh;
+    right: 0vh;
+    width: 5vh;
+    height: 5vh;
     display: grid;
     place-items: center;
     color: #fff;
@@ -149,12 +133,12 @@ h1 {
 .commentPanel {
     position: absolute;
     top: 0;
-    right: -300px;
-    width: 300px;
-    height: 300px;
+    right: -50vh;
+    width: 44vh;
+    height: 100%;
     background: rgba(0, 149, 120, 0.97);
     color: white;
-    padding: 20px;
+    padding: 1vh;
     box-shadow: -3px 0 10px rgba(0, 0, 0, 0.35);
     transition: right 0.3s ease;
     pointer-events: auto;
@@ -167,7 +151,7 @@ h1 {
 }
 
 .commentPanelOpen .commentPanelToggle {
-    right: 310px;
+    right: 43vh;
 }
 
 .commentPanelIconClose {
@@ -180,4 +164,93 @@ h1 {
 
 .commentPanelOpen .commentPanelIconClose {
     display: block;
+}
+
+.commentsContainer {
+    position: relative;
+    width: 100%;
+    height: 80%;
+    background: #4d4d4c;
+    border-radius: 5px;
+    overflow-y: hidden;
+}
+.commentsContainerInner {
+    position: relative;
+    width: 100%;
+    height: 98.5%;
+    background: #4d4d4c;
+    overflow-y: scroll;
+}
+.newCommentContainer {
+    position: relative;
+    bottom: 1%;
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    flex-direction: row;
+}
+.newCommentTextBox {
+    position: relative;
+    width: 85%;
+    resize: none;
+}
+.newCommentSubmitButton {
+    position: relative;
+    width: 15%;
+}
+
+.userCommentFull {
+    background: #ffffdd;
+    color:#000000;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 1vh;
+    padding: 1vh;
+    border-radius: 4px;
+}
+.userComment {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin: 1.5em;
+}
+.profileContainer {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1vh;
+}
+.profileContainerSub {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1vh;
+}
+.profileName {
+    font-family: sans-serif;
+    font-size: 0.8em;
+}
+.profilePicture {
+    height: 4vh;
+    width: 4vh;
+    background: #000000;
+    border-radius: 100vh;
+}
+.commentDate {
+    font-family: sans-serif;
+    font-size: 0.8em;
+    margin-left: 1vh;
+    color: #727272;
+}
+.commentText {
+    font-family: sans-serif;
+    font-size: 0.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 30vh;
+    margin-left: 1vh;
+}
+.commentFullText {
+    font-family: sans-serif;
+    font-size: 0.8em;
 }
