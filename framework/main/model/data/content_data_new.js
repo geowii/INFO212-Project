@@ -5,7 +5,7 @@ class ActualVideo {
 
 }
 
-
+conDB = new DatabaseToFrom();
 
 class DataContentMain {
     #account;
@@ -16,6 +16,8 @@ class DataContentMain {
     #views;
     #emojis;
     #source;
+    #contentId;
+    #init = false;
     #instanceId;
 
     /** constructor for base content
@@ -33,15 +35,49 @@ class DataContentMain {
         this.#comments = new DataCommentSet();
     }*/
 
-    constructor( _account, _source, _views, _emojis, _title, _description, _instanceId ) {
-        this.#account = _account;
-        this.#views = _views;
-        this.#emojis = _emojis;
-        this.#source = _source;
-        this.#title = _title;
-        this.#description = _description;
-        this.#comments = new DataCommentSet();
-        this.#instanceId = _instanceId;
+    constructor( _contentId ) {
+        this.#contentId = _contentId;
+        this.#account = undefined;
+        this.#source = undefined;
+        this.#title = undefined;
+        this.#description = undefined;
+        this.#views = undefined;
+        this.#emojis = undefined;
+        this.#comments = null;
+        this.#instanceId = Math.random() * 1<<16;
+    }
+
+    async init() {
+        if(this.#init) return this;
+
+        let tempContent = await conDB.getFromDB(['content', [this.#contentId]]);
+
+        if (!tempContent || tempContent.length === 0) {
+            console.error(`Content with ID ${this.#contentId} not found.`);
+            return this; // Exit initialization gracefully
+        }
+
+        let tempAccount = await conDB.getFromDB(['users', [tempContent[0][0]]])
+        let tempEmojis = await conDB.getAllCorI(['user_interactions', this.#contentId]);
+        let emojis = '';
+        for(let i=0; i<tempEmojis.length; i++) {
+            emojis += tempEmojis[i][3];
+        }
+        let tempCommentData = await conDB.getAllCorI(['user_comment', this.#contentId]);
+        console.log("temp comments: ", tempCommentData);
+
+        this.#account = new Account(tempAccount[1], tempAccount[2]);
+        await this.#account.init();
+        this.#source = tempContent[0][2];
+        this.#title = tempContent[0][3];
+        this.#description = tempContent[0][4];
+        this.#views = tempContent[0][5];
+        this.#emojis = emojis;
+        this.#comments = new DataCommentSet(tempCommentData);
+        console.log(this.#comments);
+
+        this.#init = true;
+        return this;
     }
 
     getProfile() {
@@ -102,8 +138,8 @@ class DataContentMain {
      * @return true, if successful
      * @return false, if unsuccessful
      */
-    addComment( _account, _verificationKey, _comment ) {
-        if( !_account.verify(_verificationKey) ) return;
+    addComment( _comment ) {
+        conDB.insertIntoDB(['user_comment', [this.#account[0], this.#account[1], this.#contentId, _comment, 0, 0]])
         return this.#comments.addComment(_comment);
     }
 }
@@ -111,8 +147,13 @@ class DataContentMain {
 class DataCommentSet {
     #list;
 
-    constructor() {
+    constructor( _dbComments ) {
         this.#list = [];
+        if(_dbComments.length != 0) {
+            for(let i=0; i<_dbComments.length; i++) {
+                this.#list.push(_dbComments[i][3]);
+            }
+        }
     }
 
     addComment( _comment ) {
@@ -208,7 +249,6 @@ class DataComment {
         return true;
     }
 }
-
 
 class TextFileYes {
     #string;

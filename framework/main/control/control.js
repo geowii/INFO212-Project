@@ -42,5 +42,3 @@ post4.addComment(account1, "", new DataComment(account1, "based opinion mate, wh
 algo.add(post4);
 
 viewer.start();
-
-
