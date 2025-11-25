@@ -4,24 +4,48 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="widrath=device-with, initial-scale=1.0">
-    <title>Gamer TikTok Uploader</title>
-    <link rel="stylesheet" href="./styles/uploadPage.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamerTok Uploader</title>
+    <link rel="stylesheet" href="../style/uploadPage.css">
+    <script src="./../../framework/main/control/upload/upload_handler.js"></script>
+    <script src="./../../framework/main/model/data/profile.js"></script>
+    <script src="./../../framework/main/model/upload/model_upload.js"></script>
+    <script src="./../../framework/main/view/upload/view_upload.js"></script>
 </head>
 
 <body>
     <div class="hero">
-        <label for="input-file" id="drop-area">
-            <input type="file" accept="video/*" id="input-file">
-            <div id="img-view">
+        <div id="drop_area">
+            <input id="input_file" type="file" accept="video/*"  hidden>
+            
+            <div id="img_view">
+                <div id="visual_guide">
+                    <!--img id="upload_icon" src="./../../media/pictures/upload.png" width="180px" height="180px" alt="Upload"-->
+
+                    <div style="font-size: 6vh; text-align: left; font-family: monospace;" alt="Upload">
+                        .....^..... <br>
+                        ..../.\.... <br>
+                        .....|..... <br>
+                        .....|..... <br>
+                        |.........| <br>
+                        |_________| <br>
+                    </div>
+
+                    <p>Drag and drop or<br>click to upload content</p>
+                </div>
                 
-                    <img src="./media/pictures/upload.png" width="180px" height="180px" alt="Upload" id="upload-icon"> 
-                
-                <p>Drag and drop or<br>click to upload content</p>
+                <video id="video_preview" width="400" height="300" controls hidden></video>
+
+                <button id="upload_button" class="upload_button" disabled >Upload</button>
+                <button id="clear_button" class="clear_button">Clear</button>
             </div>
-        </label>
+        </div>
     </div>
-    <script src="uploadPage.js"></script>
+
+    <div id="fileMeta" class="meta"></div>
+    <div id="statusEl" class="status"></div>
+
+    <script src="./../../framework/main/control/upload/control_upload.js"></script>
 </body>
 
 </html>
