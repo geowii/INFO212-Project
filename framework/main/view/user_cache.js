@@ -135,7 +135,7 @@ class DualSequence {
 }
 
 class ContentViewer {
-    static #scrollDelay = 1000;
+    static #scrollDelay = 500;
     static #scrollThresholdRatio = 0;
     static #scrollThreshold = 0;
     static #scrollResetThresholdRatio = 0.04;

@@ -22,7 +22,7 @@ h1 {
     justify-self: center;
     border-radius: 15px;
     border: #1e8419 solid 10px;
-    background-color: #4d4d4c;
+    background-color: #1e8419;
     justify-content: center;
 }
 
@@ -59,7 +59,7 @@ h1 {
 .viewCount {
     color: white;
     position: absolute;
-    bottom: 24vh;
+    bottom: 20vh;
     right: 0.5em;
     font-family: sans-serif;
     font-size: 1.2em;
@@ -69,7 +69,7 @@ h1 {
     height: 15vh;
     width: 5vh;
     position: absolute;
-    bottom: 25vh;
+    bottom: 22vh;
     right: 0.2em;
     font-size: 2em;
 }
@@ -110,14 +110,14 @@ h1 {
 
 .commentPanelToggle {
     position: absolute;
-    top: 25vh;
+    top: 30vh;
     right: 0vh;
     width: 5vh;
     height: 5vh;
     display: grid;
     place-items: center;
-    color: #fff;
-    background: #03f0c1;
+    color: #000000;
+    background: #73ff83;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -127,7 +127,8 @@ h1 {
 }
 
 .commentPanelToggle:hover {
-    background: #007960;
+    background: #005a21;
+    color: #ffffff;
 }
 
 .commentPanel {
@@ -136,10 +137,10 @@ h1 {
     right: -50vh;
     width: 44vh;
     height: 100%;
-    background: rgba(0, 149, 120, 0.97);
-    color: white;
+    background: #39a32f;
+    color: #ffffff;
     padding: 1vh;
-    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.35);
+    box-shadow: -3px 0 10px #000000;
     transition: right 0.3s ease;
     pointer-events: auto;
     overflow-y: auto;
@@ -200,7 +201,7 @@ h1 {
 }
 
 .userCommentFull {
-    background: #ffffdd;
+    background: #ddfff9;
     color:#000000;
     position: relative;
     display: flex;
