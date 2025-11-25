@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GamerTok Uploader</title>
     <link rel="stylesheet" href="../style/upload.css">
+    <script src="./../../framework/main/control/upload/upload_handler.js"></script>
+    <script src="./../../framework/main/model/data/profile.js"></script>
+    <script src="./../../framework/main/model/upload/model_upload.js"></script>
+    <script src="./../../framework/main/view/upload/view_upload.js"></script>
 </head>
 
 <body>
@@ -16,7 +20,16 @@
             
             <div id="img_view">
                 <div id="visual_guide">
-                    <img id="upload_icon" src="./media/pictures/upload.png" width="180px" height="180px" alt="Upload"> 
+                    <!--img id="upload_icon" src="./../../media/pictures/upload.png" width="180px" height="180px" alt="Upload"-->
+
+                    <div style="font-size: 6vh; text-align: left; font-family: monospace;" alt="Upload">
+                        .....^..... <br>
+                        ..../.\.... <br>
+                        .....|..... <br>
+                        .....|..... <br>
+                        |.........| <br>
+                        |_________| <br>
+                    </div>
 
                     <p>Drag and drop or<br>click to upload content</p>
                 </div>
@@ -32,7 +45,7 @@
     <div id="fileMeta" class="meta"></div>
     <div id="statusEl" class="status"></div>
 
-    <script src="../../framework/main/control/upload.js"></script>
+    <script src="./../../framework/main/control/upload/control_upload.js"></script>
 </body>
 
 </html>
