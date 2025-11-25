@@ -103,11 +103,14 @@ class DataContentMain {
         return this.#source;
     }
     getId() {
-        return this.#contentId;
+        return this.#instanceId;
+    }
+    getCommentCount() {
+        return this.#comments.getSize();
     }
 
-    setId( _contentId ) {
-        this.#contentId = _contentId;
+    setId( _instanceId ) {
+        this.#instanceId = _instanceId;
     }
     setTitle( _verificaionKey, _title ) {
         if( !this.#account.verify(_verificationKey) )
@@ -127,6 +130,8 @@ class DataContentMain {
 
     /** adds a comment to this post
      * 
+     * @param _account
+     * @param _verificationKey
      * @param {DataComment} _comment
      * @return true, if successful
      * @return false, if unsuccessful
@@ -161,8 +166,9 @@ class DataCommentSet {
      * @returns new list of comments, from comments, in descending order, from _start to _end
      */
     getComments( _startInclusive, _endExclusive ) {
-        if( _startInclusive < 0 || _endExclusive > this.#list.length )
-            return null;
+        if( _startInclusive < 0 ) _startInclusive = 0;
+        if( _endExclusive > this.#list.length ) _endExclusive = this.#list.length;
+
         var _list = [];
 
         for( var _i = _endExclusive - 1; _i >= _startInclusive; _i -- )
@@ -183,15 +189,18 @@ class DataComment {
     #account;
     #text;
     #shadowbanned;
+    #date;
+    #algoId;
 
-    constructor( _account, _verificationKey, _text ) {
-        if( !_account.verify(_verificationKey) )
-            throw new Error("failed to verify");
-        
+    constructor( _account, _text, _algoId, _date ) {
         this.#shadowbanned = !this.passesSensorshipCheck(_account, _text);
         this.#account = _account;
         this.#text = _text;
         this.#account.getProfile().addComment(this);
+        this.#date = [1, 1, 1984];
+        if( _date != undefined )
+            this.#date = _date;
+        this.#algoId = _algoId;
     }
     
     /** censorship test
@@ -220,6 +229,12 @@ class DataComment {
     }
     getText() {
         return this.#text;
+    }
+    getDate() {
+        return this.#date;
+    }
+    getId() {
+        return this.#algoId;
     }
 
     setText( _verificationKey, _text ) {

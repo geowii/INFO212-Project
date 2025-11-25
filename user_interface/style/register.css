@@ -1,0 +1,18 @@
+
+body {
+    font-family: sans-serif;
+    line-height: 1.5;
+    background: #f3f3f3;
+    margin: 0;
+}
+
+.register {
+    border-color: #1e8419;
+    border-radius: 5px;
+    border: solid, #1e8419;
+    padding: 5px;
+    justify-self: center;
+    margin: 5px;
+}
+
+

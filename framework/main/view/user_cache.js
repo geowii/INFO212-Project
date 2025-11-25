@@ -3,16 +3,16 @@ class ContentCache {
     static #VIEW_DISTANCE_DOWN = 1;
     #viewDistanceUp;
     #viewDistanceDown;
-    #algorithm;
+    #algo;
     #contentCached;
     #contentActive;
     #currentIdFillup;
 
-    constructor( _algorithm ) {
+    constructor( _algo ) {
         this.#viewDistanceUp = ContentCache.#VIEW_DISTANCE_UP;
         this.#viewDistanceDown = ContentCache.#VIEW_DISTANCE_DOWN;
 
-        this.#algorithm = _algorithm;
+        this.#algo = _algo;
         this.#contentCached = new DualSequence();
         this.#contentActive = new ModularSpiral(this.#viewDistanceUp + this.#viewDistanceDown + 1, this.#viewDistanceDown);
     
@@ -29,7 +29,7 @@ class ContentCache {
         }
     }
     #fetchNext() {
-        return [this.#algorithm.genForRandom(), this.#newId()];
+        return [this.#algo.genForRandom(), this.#newId()];
     }
     #newId() {
         this.#currentIdFillup ++;
@@ -136,19 +136,23 @@ class DualSequence {
 
 class ContentViewer {
     static #scrollDelay = 1000;
+    static #scrollThresholdRatio = 0;
     static #scrollThreshold = 0;
+    static #scrollResetThresholdRatio = 0.04;
     static #scrollResetThreshold = 40;
 
     #htmlContext;
     #cache;
-    #algorithm;
+    #algo;
+    #account;
     #loaded;
     #scrollTimer;
 
-    constructor( _htmlContext, _algorithm ) {
+    constructor( _htmlContext, _algo, _account ) {
         this.#htmlContext = _htmlContext;
-        this.#cache = new ContentCache(_algorithm);
-        this.#algorithm = _algorithm;
+        this.#cache = new ContentCache(_algo);
+        this.#algo = _algo;
+        this.#account = _account;
         this.#loaded = false;
         this.#scrollTimer = 0;
     }
@@ -197,6 +201,19 @@ class ContentViewer {
         this.#scrollTimer = Date.now();
         this.#htmlContext.style.scrollSnapType = "none";
     }
+    
+    updateComments( _algoId, _instanceId ) {
+        var _element = document.getElementById(ContentGenerator.SYNTAX_CONTENT_MAIN_ID_PREFIX + _instanceId);
+        _element.querySelector(".commentsContainerInner").innerHTML = ContentGenerator.genCommentsFrom(this.#algo.getContent(_algoId).getComments());
+        _element.querySelector(".commentsPanelTitle").innerHTML = ContentGenerator.genCommentPanelTitle(this.#algo.getContent(_algoId));
+        
+    }
+
+    resize( _event ) {
+        ContentViewer.#scrollThreshold = ContentViewer.#scrollThresholdRatio * window.innerHeight;
+        ContentViewer.#scrollResetThreshold = ContentViewer.#scrollResetThresholdRatio * window.innerHeight;
+        this.scrollReset();
+    }
 
     moveUp() {
         this.#scrollTimerReset();
@@ -221,34 +238,39 @@ class ContentViewer {
 
     #addElementUp( _algoId, _instanceId ) {
         if( _algoId == null || _instanceId == null ) return;
-        var _content = this.#algorithm.getContent(_algoId);
+        var _content = this.#algo.getContent(_algoId);
         _content.setId(_instanceId);
         var _element = document.createElement("div");
         _element.innerHTML = ContentGenerator.genMainFrom(_content);
         _element = _element.firstChild;
-        this.#bindFunctions(_element);
+        this.#bindFunctions(_element, _instanceId, _algoId);
         this.#htmlContext.insertBefore(_element, this.#htmlContext.firstChild);
     }
     #addElementDown( _algoId, _instanceId ) {
         if( _algoId == null || _instanceId == null ) return;
-        var _content = this.#algorithm.getContent(_algoId);
+        var _content = this.#algo.getContent(_algoId);
         _content.setId(_instanceId);
         var _element = document.createElement("div");
         _element.innerHTML = ContentGenerator.genMainFrom(_content);
         _element = _element.firstChild;
-        this.#bindFunctions(_element);
+        this.#bindFunctions(_element, _algoId, _instanceId);
         this.#htmlContext.appendChild(_element);
     }
     #removeElement( _instanceId ) {
-        var _element = document.getElementById(_instanceId);
+        var _element = document.getElementById(ContentGenerator.SYNTAX_CONTENT_MAIN_ID_PREFIX + _instanceId);
         if( _element == null ) return;
         this.#htmlContext.removeChild(_element);
     }
 
-    #bindFunctions( _element ) {
-        var _wrapper = _element.querySelector(".wrapper");
-        _wrapper.querySelector(".side-panel-toggle").addEventListener("click", function() {
-            _wrapper.classList.toggle("side-panel-open");
+    #bindFunctions( _element, _algoId, _instanceId ) {
+        var _wrapper = _element.querySelector(".commentPanelWrapper");
+        _wrapper.querySelector(".commentPanelToggle").addEventListener("click", function() {
+            _wrapper.classList.toggle("commentPanelOpen");
         });
+        var _button = _element.querySelector(".newCommentSubmitButton");
+        var _account = this.#account;
+        var _algo = this.#algo;
+        var _viewer = this;
+        _button.addEventListener("click", function() { CommentController.submitComment(_account, _algo, _algoId, _instanceId); _viewer.updateComments(_algoId, _instanceId); } );
     }
 }
