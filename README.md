@@ -7,7 +7,7 @@ This project is a simple web application that allows users to scroll through sho
 -Run index.html to start  
 -scroll downwards to generate a new video  
 
-*demos:*
+*demos:*  
 -Run "user_interface/page/feed.html" to run the website with old data system, this is what index.html redirects to, stable  
 -Run flask and "user_interface/page/feed_new.html" to run the website with database integrated, potentially unstable  
 -Run flask and "user_interface/page/upload.html" to run the upload page  
